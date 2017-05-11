@@ -1,0 +1,11 @@
+{
+  "name": "media-api",
+  "version": "1.0.0",
+  "description": "A nodeJS rest API to serve spotify API requests.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Avil",
+  "license": "ISC"
+}
