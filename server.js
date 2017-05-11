@@ -1,4 +1,5 @@
 var http = require('http');
+var https = require('https');
 var express = require('express');
 var app = express();
 
@@ -12,4 +13,23 @@ http.createServer(app).listen(app.get('port'), app.get('ip'), function () {
 app.get('/', function (req, res) {
     res.setHeader('content-type', 'text/javascript');
     res.send('Hello World!');
+});
+
+app.get('/tracks', function (req, res) {
+    let tracks = 'default';
+    return https.get('https://api.spotify.com/v1/artists/1c22GXH30ijlOfXhfLz9Df/top-tracks?country=us'
+        , function (response) {
+            // Continuously update stream with data
+            var body = '';
+            response.on('data', function (d) {
+                body += d;
+            });
+            response.on('end', function () {
+
+                // Data reception is done, do whatever with it!
+                tracks = JSON.parse(body);
+                res.send(tracks);
+            });
+        });
+
 });
