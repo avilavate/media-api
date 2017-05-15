@@ -17,6 +17,10 @@ app.get('/', function (req, res) {
 });
 
 app.get('/tracks', function (req, res) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+
     let tracks = 'default';
     return https.get('https://api.spotify.com/v1/artists/1c22GXH30ijlOfXhfLz9Df/top-tracks?country=us'
         , function (response) {
