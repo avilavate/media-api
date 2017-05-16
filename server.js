@@ -6,7 +6,7 @@ var app = express();
 app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080);
 app.set('ip', process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
 
-https.createServer(app).listen(app.get('port'), app.get('ip'), function () {
+http.createServer(app).listen(app.get('port'), app.get('ip'), function () {
     console.log('Express server listening on port ' + app.get('port'));
 });
 
@@ -16,29 +16,29 @@ app.get('/', function (req, res) {
     res.send('Hello World!');
 });
 
-app.get('/artists', function (req, res) {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
- //   https://api.spotify.com/v1/search?q=beatles&type=artist&market=US&limit=10
+// app.get('/artists', function (req, res) {
+//     res.header('Access-Control-Allow-Origin', '*');
+//     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+//     res.header('Access-Control-Allow-Headers', 'Content-Type');
+//  //   https://api.spotify.com/v1/search?q=beatles&type=artist&market=US&limit=10
 
-    let artist = 'default';
-    return https.get(`https://api.spotify.com/v1/search?q=${req.query.artist}&type=artist&market=US&limit=10`
-        , function (response) {
-            // Continuously update stream with data
-            var body = '';
-            response.on('data', function (d) {
-                body += d;
-            });
-            response.on('end', function () {
+//     let artist = 'default';
+//     return https.get(`https://api.spotify.com/v1/search?q=${req.query.artist}&type=artist&market=US&limit=10`
+//         , function (response) {
+//             // Continuously update stream with data
+//             var body = '';
+//             response.on('data', function (d) {
+//                 body += d;
+//             });
+//             response.on('end', function () {
 
-                // Data reception is done, do whatever with it!
-                artist = JSON.parse(body);
-                res.send(artist);
-            });
-        });
+//                 // Data reception is done, do whatever with it!
+//                 artist = JSON.parse(body);
+//                 res.send(artist);
+//             });
+//         });
 
-});
+// });
 
 app.get('/tracks', function (req, res) {
     res.header('Access-Control-Allow-Origin', '*');
